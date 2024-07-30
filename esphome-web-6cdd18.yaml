@@ -1,0 +1,505 @@
+substitutions:
+  name: lilygo
+  friendly_name: Lilygo
+
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  min_version: 2024.6.0
+  name_add_mac_suffix: false
+  platformio_options:
+
+    board_build.f_flash: 80000000L
+    #board_upload.flash_size: 16MB
+    board_build.flash_mode: qio
+    board_build.psram_type: opi
+    board_build.partitions: default_16MB.csv
+    board_build.arduino.memory_type: qio_opi
+  project:
+    name: esphome.web
+    version: '1.0'
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+# Allow Over-The-Air updates
+ota:
+- platform: esphome
+
+# Allow provisioning Wi-Fi via serial
+improv_serial:
+
+wifi:
+  # Set up a wifi access point
+  ap: {}
+
+
+captive_portal:
+
+dashboard_import:
+  package_import_url: github://esphome/firmware/esphome-web/esp32s3.yaml@main
+  import_full_config: true
+
+# Sets up Bluetooth LE (Only on ESP32) to allow the user
+# to provision wifi credentials to the device.
+esp32_improv:
+  authorizer: none
+
+# To have a "next url" for improv serial
+web_server:
+
+font:
+  - file: "epaper/Roboto-Black.ttf"
+    id: book20
+    size: 20
+    glyphs: &font-glyphs
+      ['!','/', '"', '%', '(', ')', '+', '=', ',', '-', '_', '.', ':', '°', ' ',
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+      'ä', 'ö', 'ü', 'ß', 'Ä', 'Ö', 'Ü', 'é', 'à', 'è', 'ç', 'ù', 'É', 'À', 'È', 'Ç', 'Ù']
+
+  - file: "epaper/Roboto-Black.ttf"
+    id: book25
+    size: 25
+    glyphs : *font-glyphs 
+  ########## BOLD ################## 
+  - file: "epaper/Roboto-Black.ttf"
+    id: bold15
+    size: 15
+    glyphs : *font-glyphs 
+  - file: "epaper/Roboto-Black.ttf"
+    id: bold20
+    size: 20
+    glyphs : *font-glyphs 
+  - file: "epaper/Roboto-Black.ttf"
+    id: bold25
+    size: 25
+    glyphs : *font-glyphs 
+  - file: "epaper/Roboto-Black.ttf"
+    id: bold30
+    size: 30
+    glyphs : *font-glyphs 
+  - file: "epaper/Roboto-Black.ttf"
+    id: bold35
+    size: 35
+    glyphs : *font-glyphs 
+  - file: "epaper/Roboto-Black.ttf"
+    id: bold40
+    size: 40
+    glyphs : *font-glyphs 
+  - file: "epaper/Roboto-Black.ttf"
+    id: bold50
+    size: 50
+    glyphs: ['/', '!', '"', '%', '(', ')', '+', '=', ',', '-', '_', '.', ':', '°', ' ',
+      '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+      'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+      'ä', 'ö', 'ü', 'ß', 'Ä', 'Ö', 'Ü', 'é', 'à', 'è', 'ç', 'ù', 'É', 'À', 'È', 'Ç', 'Ù']
+
+  - file: 'epaper/materialdesignicons-webfont.ttf'
+    id: mdi70
+    size: 70
+    glyphs: &mdi-weather-glyphs
+
+    #https://andreinitescu.github.io/IconFont2Code/
+    #Solar
+      - "\U000f0a72" # mdi-solar-power-variant-outline
+      - "\U000F07E7" # mdi-solar-panel
+      - "\U000F07E8" # mdi-solar-power  
+
+
+
+
+      - "\U000f0e02" #ThermometerChevronDown
+      - "\U000f0e03" #ThermometerChevronUp
+      - "\U000f10c2" #ThermometerHigh
+      - "\U000f10c3" #ThermometerLow
+      - "\U000F0079" # mdi-battery
+      - "\U000f007a" # mdi-battery-10
+      - "\U000f007b" # mdi-battery-20
+      - "\U000f007c" # mdi-battery-30
+      - "\U000f007d" # mdi-battery-40
+      - "\U000f007e" # mdi-battery-50
+      - "\U000f007f" # mdi-battery-60
+      - "\U000f0080" # mdi-battery-70
+      - "\U000f0081" # mdi-battery-80
+      - "\U000f0082" # mdi-battery-90
+      - "\U000f0083" # mdi-battery-alert
+      - "\U000f0084" # mdi-battery-charging
+      - "\U000F0CAC" # mdi-battery-charging-10
+      - "\U000F0CAD" # mdi-battery-charging-20
+      - "\U000F0CAE" # mdi-battery-charging-30
+      - "\U000F0CAF" # mdi-battery-charging-40
+      - "\U000F0CB0" # mdi-battery-charging-50
+      - "\U000F0CB1" # mdi-battery-charging-60
+      - "\U000F0CB2" # mdi-battery-charging-70
+      - "\U000F0CB3" # mdi-battery-charging-80
+      - "\U000F0CB4" # mdi-battery-charging-90
+      - "\U000F0CB5" # mdi-battery-charging-outline
+      - "\U000f17e0" # Batterie wird geladen
+      - "\U000f17df" # Batterie wird entladen
+
+
+      - "\U000f0f92" # Water Boiler
+
+      - "\U000F1904" # Verbrauch Haus
+
+      - "\U000f0f55" # Innentemperatur
+      - "\U000f18d6"  # Aussentemperatur
+
+
+
+      - "\U000F10A2" # mdi-power-socket-de
+
+      - "\U000f0d3e" # mdi-transmission-tower
+      - "\U000f192c" # mdi-transmission-tower-export
+      - "\U000f192d" # mdi-transmission-tower-import
+ 
+      - "\U000F15E0" # mdi-solar-power-variant
+
+      - "\U000f09a0" #Warmwasser Dusche
+
+      - "\U000f0533" #Luftdruck fallend
+      - "\U000f0534" #Luftdruck gleichbleibend
+      - "\U000f0535" #Luftdruck steigend
+
+      - "\U000f15fa" #Wind Wondsocke
+      - "\U000f059d" #Windsymbol
+      - "\U000f0596" #Regen
+      - "\U000f01ad" #Euro
+
+  - file: 'epaper/materialdesignicons-webfont.ttf'
+    id: mdi36
+    size: 36
+    glyphs: *mdi-weather-glyphs
+
+  - file: 'epaper/materialdesignicons-webfont.ttf'
+    id: mdi20
+    size: 20
+    glyphs: *mdi-weather-glyphs
+
+  - file: 'epaper/materialdesignicons-webfont.ttf'
+    id: mdi24
+    size: 24
+    glyphs: *mdi-weather-glyphs
+
+sensor:
+
+# Stromverbrauch Haus momentan
+  - platform: homeassistant
+    entity_id: sensor.stromverbrauch_haus_gesammt
+    id: stromverbrauch_haus_gesammt
+
+#Aktuelle PV Erzeugung
+    #gesammt
+  - platform: homeassistant
+    entity_id: sensor.solar
+    id: pv_gesammt
+    #Haus
+  - platform: homeassistant
+    entity_id: sensor.pv1_power
+    id: pv1_power
+    #Gartenhütte und Freianlage
+  - platform: homeassistant
+    entity_id: sensor.pv2_power
+    id: pv2_power
+
+
+
+#Heutige PV produktion
+  - platform: homeassistant
+    entity_id: sensor.today_s_pv_generation
+    id: today_s_pv_generation    
+
+#Verbrauch Aus/Ins Netz momentan
+  - platform: homeassistant
+    entity_id: sensor.active_power
+    id: active_power
+
+
+#Verbrauch Haus heute
+  - platform: homeassistant
+    entity_id: sensor.verbrauch_haus
+    id: verbrauch_haus
+
+#Stromverkauf heute
+  - platform: homeassistant
+    entity_id: sensor.energy_sell_daily
+    id: energy_sell_daily
+
+  - platform: homeassistant
+    entity_id: sensor.energy_buy_daily
+    id: energy_buy_daily
+
+#Momentaner Verbrauch AUS/IN die Batterie
+  - platform: homeassistant
+    entity_id: sensor.battery_power
+    id: battery_power
+
+#Füllstand Batterie in Prozent
+  - platform: homeassistant
+    entity_id: sensor.battery_state_of_charge
+    id: battery_state_of_charge
+
+#Boilerfühler oben/unten
+  - platform: homeassistant
+    entity_id: sensor.fuehler_boilertemperatur_oben
+    id: fuehler_boilertemperatur_oben
+  - platform: homeassistant
+    entity_id: sensor.fuehler_boilertemperatur_unten
+    id: fuehler_boilertemperatur_unten
+
+#Tempertaur innen/aussen
+  - platform: homeassistant
+    entity_id: sensor.wetter_temperatur
+    id: wetter_temperatur
+  - platform: homeassistant
+    entity_id: sensor.bewegungsmelder_kuche_temperature
+    id: kuche_temperature
+
+#Batteriespeicher Laden/Entladen kWh
+  - platform: homeassistant
+    entity_id: sensor.today_battery_charge
+    id: today_battery_charge
+  - platform: homeassistant
+    entity_id: sensor.today_battery_discharge
+    id: today_battery_discharge
+
+#Temperatur Tiefenbohrung
+  - platform: homeassistant
+    entity_id: sensor.fuehler_vorlauf_tiefenbohrung
+    id: fuehler_vorlauf_tiefenbohrung
+  - platform: homeassistant
+    entity_id: sensor.fuehler_r_cklauf_tiefenbohrung
+    id: fuehler_r_cklauf_tiefenbohrung
+
+#Fußbodenheizung vor/rückluaf
+  - platform: homeassistant
+    entity_id: sensor.fuehler_fu_bodenheizung_vorlauf
+    id: fuehler_fu_bodenheizung_vorlauf
+
+  - platform: homeassistant
+    entity_id: sensor.fuehler_fu_bodenheizung_r_cklauf
+    id: fuehler_fu_bodenheizung_r_cklauf
+
+#Wind    
+  - platform: homeassistant
+    entity_id: sensor.davis_vantage_wind_speed
+    id: wind_speed
+
+#Luftdruck
+
+  - platform: homeassistant
+    entity_id: sensor.davis_vantage_barometric_pressure
+    id: davis_luftdruck
+
+  - platform: homeassistant
+    entity_id: sensor.davis_vantage_barometric_trend
+    id: davis_vantage_barometric_trend
+
+#Regen letzte Stunde
+  - platform: homeassistant
+    entity_id: sensor.meter_total_energy_export_compensation
+    id: wetter_regen_letzte_stunde
+
+#Energiekosten
+  - platform: homeassistant
+    entity_id: sensor.meter_total_energy_import_cost
+    id: import_kosten
+
+  - platform: homeassistant
+    entity_id: sensor.meter_total_energy_export_compensation
+    id: export_kosten
+
+
+#Datun und Uhrzeit
+text_sensor: 
+  - platform: homeassistant
+    entity_id: sensor.date
+    id: date_date
+  - platform: homeassistant
+    entity_id: sensor.time
+    id: time_time
+
+
+
+
+external_components:
+  - source: github://nickolay/esphome-lilygo-t547plus
+    components: ["t547"]
+
+  - source: github://kaeltis/esphome-lilygo-t547plus
+    components: ["lilygo_t5_47_battery"]
+
+
+display:
+  - platform: t547
+    id: t5_display
+    rotation: 0
+    update_interval: 10s
+    lambda: |-
+
+     // Zeile 1
+     // Momentane PV Leistung und Erzeutge PV Energie heute
+     it.print(50, 5, id(mdi70), TextAlign::TOP_CENTER, "\U000f0a72");
+     it.printf(220, 5, id(bold50), TextAlign::TOP_CENTER, "%5.0f W", id(pv_gesammt).state);
+     it.printf(220, 65, id(bold20), TextAlign::TOP_CENTER, "%5.0f W PV Hausdach", id(pv1_power).state);
+     it.printf(220, 95, id(bold20), TextAlign::TOP_CENTER, "%5.0f W PV Gartenhütte", id(pv2_power).state);
+
+     // Momentanter Verbrauch Haus und Verbrauchte Energie 
+     it.print(430, 5, id(mdi70), TextAlign::TOP_CENTER, "\U000F1904");
+     it.printf(600, 5, id(bold50), TextAlign::TOP_CENTER, "%5.0f W", id(stromverbrauch_haus_gesammt).state);
+     it.printf(600, 65, id(bold20), TextAlign::TOP_CENTER, "%5.2f kWh wurden verbraucht", id(verbrauch_haus).state);
+     it.printf(630, 95, id(bold20), TextAlign::TOP_CENTER, "%5.2f kWh wurden heute erzeugt", id(today_s_pv_generation).state);
+
+     // Zeile 2
+     // Aktueller Verbrauch aus dem Netz und Verbrauchte Energie
+     if (id(active_power).state > 0) {
+        it.print(50, 120, id(mdi70), TextAlign::TOP_CENTER, "\U000f192d");  // Symbol 1
+      } else {
+        it.print(50, 120, id(mdi70), TextAlign::TOP_CENTER, "\U000f192c"); // Symbol 2
+      }
+
+
+
+     it.printf(220, 120, id(bold50), TextAlign::TOP_CENTER, "%5.0f W", id(active_power).state);
+     it.printf(220, 180, id(bold20), TextAlign::TOP_CENTER, "%5.2f kWh importiert", id(energy_buy_daily).state);
+     it.printf(220, 210, id(bold20), TextAlign::TOP_CENTER, "%5.2f kWh exportiert", id(energy_sell_daily).state);
+
+     // Aktueller Verbrauch aus/in den Speicher
+     if (id(battery_power).state > 0) {
+        it.print(430, 120, id(mdi70), TextAlign::TOP_CENTER, "\U000f17e0");  // Symbol 1
+      } else {
+        it.print(430, 120, id(mdi70), TextAlign::TOP_CENTER, "\U000f17df"); // Symbol 2
+      }
+
+
+     it.printf(600, 120, id(bold50), TextAlign::TOP_CENTER, "%5.0f W", id(battery_power).state);
+     it.printf(600, 180, id(bold20), TextAlign::TOP_CENTER, "%5.2f kWh geladen", id(today_battery_charge).state);
+     it.printf(600, 210, id(bold20), TextAlign::TOP_CENTER, "%5.2f kWh entladen", id(today_battery_discharge).state);
+
+
+
+     // Zeile 3
+
+     float value = id(battery_state_of_charge).state;
+      if (value > 99) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000F0079");  // Symbol für > 99
+      } else if (value > 90) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f0082");  // Symbol für > 90
+      } else if (value > 80) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f0081");  // Symbol für > 80
+      } else if (value > 70) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f0080");  // Symbol für > 70
+      } else if (value > 60) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f007f");  // Symbol für > 60
+      } else if (value > 50) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f007e");  // Symbol für > 50
+      } else if (value > 40) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f007d");  // Symbol für > 40
+      } else if (value > 30) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f007c");  // Symbol für > 30
+      } else if (value > 20) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f007b");  // Symbol für > 20
+      } else if (value > 10) {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f007a");  // Symbol für > 10
+      } else {
+      it.print(50, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f0083");  // Symbol für <= 10
+      }
+
+
+     // Füllstand des Batteriespeichers
+     it.printf(220, 235, id(bold50), TextAlign::TOP_CENTER, "%3.0f %%", id(battery_state_of_charge).state);
+     it.printf(220, 295, id(bold20), TextAlign::TOP_CENTER, "Füllstand des Batteriespeichers");
+
+    
+     //Temperatur  Aussen
+     
+     it.print(430, 235, id(mdi70), TextAlign::TOP_CENTER, "\U000f18d6");
+     it.printf(600, 235, id(bold50), TextAlign::TOP_CENTER, "%2.1f °C", id(wetter_temperatur).state);
+     it.printf(600, 295, id(bold20), TextAlign::TOP_CENTER, "Aussentemperatur");
+
+
+     // Zeile 4
+     //Temperatur Innen 
+     it.print(30, 325, id(mdi24), TextAlign::TOP_CENTER, "\U000f0f55");
+     it.printf(120, 325, id(bold25), TextAlign::TOP_CENTER, "%3.1f °C", id(kuche_temperature).state);
+     it.printf(120, 355, id(bold15), TextAlign::TOP_CENTER, "Innentemperatur");
+
+
+
+     // Drucken des Symbols
+     it.print(230, 325, id(mdi24), TextAlign::TOP_CENTER, "\U000f0533");
+
+
+     it.printf(320, 325, id(bold25), TextAlign::TOP_CENTER, "%4.1f hPa", id(davis_luftdruck).state); 
+     it.printf(320, 355, id(bold15), TextAlign::TOP_CENTER, "Luftdruck");
+
+     // Windspeed
+     it.print(420, 325, id(mdi24), TextAlign::TOP_CENTER, "\U000f059d");
+     it.printf(510, 325, id(bold25), TextAlign::TOP_CENTER, "%3.1f km/h", id(wind_speed).state);
+     it.printf(510, 355, id(bold15), TextAlign::TOP_CENTER, "Windspeed");
+
+     //Regen in der letzen Stunde
+     it.print(600, 325, id(mdi24), TextAlign::TOP_CENTER, "\U000f0596");
+     it.printf(690, 325, id(bold25), TextAlign::TOP_CENTER, "%2.1f mm", id(wetter_regen_letzte_stunde).state);
+     it.printf(690, 355, id(bold15), TextAlign::TOP_CENTER, "Regen letzte Stunde");
+
+
+
+     //Zeile 5
+     // Luftdruck
+     it.print(30, 380, id(mdi24), TextAlign::TOP_CENTER, "\U000f09a0");
+     it.printf(120, 380, id(bold25), TextAlign::TOP_CENTER, "%2.1f °C", id(fuehler_boilertemperatur_oben).state);
+     it.printf(120, 410, id(bold15), TextAlign::TOP_CENTER, "Boilertemperatur oben");
+     
+     // Fussbodenheizung Vorlauf
+     it.print(230, 380, id(mdi24), TextAlign::TOP_CENTER, "\U000f10c2");
+     it.printf(320, 380, id(bold25), TextAlign::TOP_CENTER, "%2.1f °C", id(fuehler_fu_bodenheizung_vorlauf).state);
+     it.printf(320, 410, id(bold15), TextAlign::TOP_CENTER, "Fussboden Vorlauf");
+
+     //Temperatur Tiefenbohrung
+     it.print(420, 380, id(mdi24), TextAlign::TOP_CENTER, "\U000f10c2");
+     it.printf(510, 380, id(bold25), TextAlign::TOP_CENTER, "%2.1f °C", id(fuehler_vorlauf_tiefenbohrung).state);
+     it.printf(510, 410, id(bold15), TextAlign::TOP_CENTER, "Vorlauf Tiefenbohrung");
+
+     it.print(600, 380, id(mdi24), TextAlign::TOP_CENTER, "\U000f01ad");
+     it.printf(690, 380, id(bold25), TextAlign::TOP_CENTER, "%2.2f Euro", id(export_kosten).state);
+     it.printf(690, 410, id(bold15), TextAlign::TOP_CENTER, "Strom verkauft");
+  
+     // Zeile 6
+     // Boiler unten
+     it.print(30, 435, id(mdi24), TextAlign::TOP_CENTER, "\U000f09a0");
+     it.printf(120, 435, id(bold25), TextAlign::TOP_CENTER, "%2.1f °C", id(fuehler_boilertemperatur_unten).state);
+     it.printf(120, 465, id(bold15), TextAlign::TOP_CENTER, "Boilertemperatur unten");
+
+     // Vorlauf/Rücklauf Fussbodenheizung
+     it.print(230, 435, id(mdi24), TextAlign::TOP_CENTER, "\U000f10c3");
+     it.printf(320, 435, id(bold25), TextAlign::TOP_CENTER, "%2.1f °C", id(fuehler_fu_bodenheizung_r_cklauf).state);
+     it.printf(320, 465, id(bold15), TextAlign::TOP_CENTER, "Rücklauf Fussboden");
+
+     //Temperatur Tiefenbohrung
+     it.print(420, 435, id(mdi24), TextAlign::TOP_CENTER, "\U000f10c3");
+     it.printf(510, 435, id(bold25), TextAlign::TOP_CENTER, "%2.1f °C", id(fuehler_r_cklauf_tiefenbohrung).state);
+     it.printf(510, 465, id(bold15), TextAlign::TOP_CENTER, "Rücklauf Tiefenbohrung");
+
+     it.print(600, 435, id(mdi24), TextAlign::TOP_CENTER, "\U000f01ad");
+     it.printf(690, 435, id(bold25), TextAlign::TOP_CENTER, "%2.2f Euro", id(import_kosten).state);
+     it.printf(690, 465, id(bold15), TextAlign::TOP_CENTER, "Strom gekauft");
+
+     
+
+
+
+
+
